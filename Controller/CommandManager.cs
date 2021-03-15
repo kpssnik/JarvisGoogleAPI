@@ -15,7 +15,7 @@ namespace JarvisGoogleAPI.Controller
         private readonly EfCommandsRepository commandsRepos;
         private readonly EfProcNamesRepository procNamesRepos;
         private readonly Dictionary<string, string> commandPairs;
-        private readonly Dictionary<string, string> procNamesPairs;
+        private readonly Dictionary<string, string> procNamesPairs;    
 
         public CommandManager()
         {
@@ -26,26 +26,74 @@ namespace JarvisGoogleAPI.Controller
             procNamesPairs = procNamesRepos.GetProcNamesAsDictionary();
         }
 
-        public void HandleCommand(string command)
-        {         
-            string[] splitted = command.ToLower().Split(' ');
+        public void HandleCommand(string cmd)
+        {
+            if (cmd.Equals(string.Empty)) return;
+            string[] splitted = cmd.ToLower().Split(' ');
+            string command = string.Empty, firstArgument = string.Empty;
 
-            //MessageBox.Show($"{splitted[1]}  {procNamesPairs[splitted[1]]}");
+            if (splitted.Length > 0) command = splitted[0];
+            if (splitted.Length > 1) firstArgument = splitted[1];
 
-            if (splitted[0].Equals(commandPairs["process_start"]))
+            // Process start
+            if (command.Equals(commandPairs["process_start"]))
             {
-                Process.Start(procNamesPairs[splitted[1]]);
+                ProcessStart(firstArgument);
             }
-            else if (splitted[0].Equals(commandPairs["process_kill"]))
+            // Process kill
+            else if (command.Equals(commandPairs["process_kill"]))
             {
-                foreach(var process in Process.GetProcesses())
+                ProcessKill(firstArgument);
+            }
+            // Application exit
+            else if (command.Equals(commandPairs["jarvis_shutdown"]))
+            {
+                ExitConfirmation();
+            }
+            // Google search
+            else if (command.Equals(commandPairs["browser_find"]))
+            {
+                GoogleSearch(splitted);
+            }
+        }
+
+        private void ProcessStart(string userProcessName)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {procNamesPairs[userProcessName]}") { CreateNoWindow = true });
+        }
+
+        private void ProcessKill(string userProcessName)
+        {
+            foreach (var process in Process.GetProcesses())
+            {
+                if (process.ProcessName.ToLower().Contains(procNamesPairs[userProcessName]))
                 {
-                    if (process.ProcessName.ToLower().Contains(procNamesPairs[splitted[1]]))
-                    {
-                        process.Kill();
-                    }
+                    process.Kill();
                 }
-               
+            }
+        }
+
+        private void GoogleSearch(string[] splitted)
+        {
+            string query = string.Empty;
+            for (int i = 1; i < splitted.Length; i++)
+            {
+                query += "+" + splitted[i];
+            }
+
+            Process.Start(new ProcessStartInfo("cmd", $"/c start http://www.google.com/search?q=" + query) { CreateNoWindow = true });
+        }
+
+        private void ExitConfirmation()
+        {
+            DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите закрыть Джарвиса?", "Вы уверены?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Process.GetCurrentProcess().Kill();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
             }
         }
 
