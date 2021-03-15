@@ -14,11 +14,23 @@ namespace JarvisGoogleAPI.Domain
         public DbSet<Command> Commands { get; set; }
         public DbSet<ProcName> ProcNames { get; set; }
 
-        //public AppDbContext(DbContextOptions options) : base(options) { }
+        public AppDbContext()
+        {
+            Database.EnsureCreated();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(Config.ConnectionString);
+            switch (Config.DatabaseType)
+            {
+                case DatabaseType.SQLite:
+                    optionsBuilder.UseSqlite(Config.SQLiteConnectionString);
+                    break;
+
+                case DatabaseType.MSSQL:
+                    optionsBuilder.UseSqlServer(Config.EfConnectionString);
+                    break;
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,6 +62,12 @@ namespace JarvisGoogleAPI.Domain
                 Id = 4,
                 SystemName = "jarvis_shutdown",
                 UserName = "умри"
+            });
+            modelBuilder.Entity<Command>().HasData(new Command()
+            {
+                Id = 5,
+                SystemName = "process_screenshot",
+                UserName = "фото"
             });
 
 

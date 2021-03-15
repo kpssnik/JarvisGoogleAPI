@@ -26,12 +26,15 @@ namespace JarvisGoogleAPI.Controller
             {
                 if (isRecording == false)
                 {
+                    Console.Beep(Config.OnBeepFrequency, Config.BeepDuration);
                     recorder.StartRecording();
                     isRecording = true;
                     return false;
+
                 }
                 else
                 {
+                    Console.Beep(Config.OffBeepFrequency, Config.BeepDuration);
                     recorder.StopRecording();
 
                     result = recognizer.RecognizeTextFromWav();

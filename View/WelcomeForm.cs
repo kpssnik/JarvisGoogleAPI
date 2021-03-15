@@ -11,6 +11,8 @@ using JarvisGoogleAPI.Controller;
 using System.Threading;
 using System.Diagnostics;
 using JarvisGoogleAPI.Domain.Repositories.EntityFramework;
+using JarvisGoogleAPI.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace JarvisGoogleAPI.View
 {
@@ -30,6 +32,14 @@ namespace JarvisGoogleAPI.View
             commandManager = new CommandManager();
 
             hooker.Start();
+
+            using(AppDbContext context = new AppDbContext())
+            {
+                if(context.Database.EnsureCreated())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
 
         private void WelcomeForm_Load(object sender, EventArgs e)
