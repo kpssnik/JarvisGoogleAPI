@@ -1,4 +1,5 @@
 ﻿using JarvisGoogleAPI.Domain;
+using JarvisGoogleAPI.Domain.Entities;
 using JarvisGoogleAPI.Domain.Repositories.EntityFramework;
 using JarvisGoogleAPI.Tools;
 using System;
@@ -14,20 +15,27 @@ using System.Windows.Forms;
 
 namespace JarvisGoogleAPI.Controller
 {
-    public class CommandManager
+    public class CommandController
     {
         private readonly EfCommandsRepository commandsRepos;
         private readonly EfProcNamesRepository procNamesRepos;
         private readonly Dictionary<string, string> commandPairs;
         private readonly Dictionary<string, string> procNamesPairs;
 
-        public CommandManager()
+        public CommandController()
         {
             commandsRepos = new EfCommandsRepository(new AppDbContext());
             procNamesRepos = new EfProcNamesRepository(new AppDbContext());
 
             commandPairs = commandsRepos.GetCommandsAsDictionary();
             procNamesPairs = procNamesRepos.GetProcNamesAsDictionary();
+
+            //ProcName pn = procNamesRepos.GetProcNames().Where(x => x.SystemName == "aga").FirstOrDefault();
+
+            //pn.SystemName = "newAga";
+
+            //procNamesRepos.SaveProcName(pn);
+
         }
 
         public void HandleCommand(string cmd)

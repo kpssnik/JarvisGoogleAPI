@@ -16,6 +16,7 @@ namespace JarvisGoogleAPI.Tools
         public static int Rate = 16000;
         public static string AudioFileName = "demo.wav";
         public static string GoogleAPI = @"https://www.google.com/speech-api/v2/recognize?output=json&lang=ru-RU&key=AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw";
+
         public static string EfConnectionString = "Server=(localdb)\\mssqllocaldb; Database=JarvisDB; Trusted_Connection=True";
         public static string SQLiteConnectionString = "Filename=Jarvis.db";
 

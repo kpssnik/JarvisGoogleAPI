@@ -10,7 +10,7 @@ using JarvisGoogleAPI.Controller.Convert;
 
 namespace JarvisGoogleAPI.Controller
 {
-    public class ConvertManager
+    public class ConvertController
     {
         private bool isRecording = false;
         private Recorder recorder = new Recorder();
