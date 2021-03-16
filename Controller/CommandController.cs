@@ -86,24 +86,56 @@ namespace JarvisGoogleAPI.Controller
 
         private void ProcessKill(string userProcessName)
         {
-            foreach (var process in Process.GetProcesses())
+            try
             {
-                if (process.ProcessName.ToLower().Contains(procNamesPairs[userProcessName]))
+                foreach (var process in Process.GetProcesses())
                 {
-                    process.Kill();
+                    if (process.ProcessName.ToLower().Contains(procNamesPairs[userProcessName]))
+                    {
+                        process.Kill();
+                    }
                 }
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.Beep(300, 100);
+                Console.Beep(250, 100);
             }
         }
 
         private void GoogleSearch(string[] splitted)
         {
             string query = string.Empty;
-            for (int i = 1; i < splitted.Length; i++)
+
+            if (splitted[1] == "видео")
             {
-                query += "+" + splitted[i];
+                for (int i = 2; i < splitted.Length; i++)
+                {
+                    query += splitted[i] + "+";
+                }
+                Process.Start(new ProcessStartInfo("cmd", $"/c start https://www.youtube.com/results?search_query=" + query) { CreateNoWindow = true });
+            }
+            else if (splitted[1] == "фото")
+            {
+                for (int i = 2; i < splitted.Length; i++)
+                {
+                    query += splitted[i] + "+";
+                }
+                Process.Start(new ProcessStartInfo("cmd", ($"/c start https://google.com/search?q="+query.Trim('+') + "\"&\"tbm=isch")) { CreateNoWindow = true });
             }
 
-            Process.Start(new ProcessStartInfo("cmd", $"/c start http://www.google.com/search?q=" + query) { CreateNoWindow = true });
+
+
+            else
+            {
+                for (int i = 1; i < splitted.Length; i++)
+                {
+                    query += "+" + splitted[i];
+                }
+
+                Process.Start(new ProcessStartInfo("cmd", $"/c start http://www.google.com/search?q=" + query) { CreateNoWindow = true });
+            }
+
         }
 
         private void ExitConfirmation()

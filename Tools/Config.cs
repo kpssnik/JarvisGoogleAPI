@@ -9,7 +9,7 @@ namespace JarvisGoogleAPI.Tools
 {
     public static class Config
     {
-        public static Keys RecordKey = Keys.T;
+        public static Keys RecordKey = Keys.F12;
         public static string ScreenshotPath = "Screenshots";
         public static DatabaseType DatabaseType = DatabaseType.SQLite;
 
