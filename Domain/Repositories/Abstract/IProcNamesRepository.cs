@@ -11,6 +11,8 @@ namespace JarvisGoogleAPI.Domain.Repositories.Abstract
     {
         public IQueryable<ProcName> GetProcNames();
         public Dictionary<string, string> GetProcNamesAsDictionary();
+
+        public List<ProcName> GetProcNamesAsList();
         public void SaveProcName(ProcName procName);
         public void DeleteProcName(ProcName procName);
     }

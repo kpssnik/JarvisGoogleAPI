@@ -23,16 +23,17 @@ namespace JarvisGoogleAPI.View
 {
     public partial class WelcomeForm : MetroForm
     {
-        private ConvertController convertManager;
-        private CommandController commandManager;
+        private ConvertController convertController;
+        private CommandController commandController;
 
         private EfCommandsRepository commandsRepos;
 
         private UserActivityHook hooker;
 
-        bool isStarted = false;
+        private bool isStarted = false;
 
-        List<TextBox> tbs; 
+        // Dynamic command textBoxes
+        private List<TextBox> tbs; 
 
         public WelcomeForm()
         {
@@ -41,8 +42,8 @@ namespace JarvisGoogleAPI.View
             tbs = new List<TextBox>();
 
             hooker = new UserActivityHook();
-            convertManager = new ConvertController();
-            commandManager = new CommandController();
+            convertController = new ConvertController();
+            commandController = new CommandController();
 
             commandsRepos = new EfCommandsRepository(new AppDbContext());
 
@@ -103,9 +104,9 @@ namespace JarvisGoogleAPI.View
         }
         private void MyKeyUp(object sender, KeyEventArgs e)
         {
-            if (isStarted && convertManager.DoRecord(e) == true)
+            if (isStarted && convertController.DoRecord(e) == true)
             {
-                commandManager.HandleCommand(convertManager.Result);
+                commandController.HandleCommand(convertController.Result);
             }
         }
 
@@ -142,6 +143,8 @@ namespace JarvisGoogleAPI.View
             }
 
             saveCommandsButton.Enabled = false;
+
+            commandController.UpdateDictionaries();
         }
 
         private void textBox_TextChanged(object sender, EventArgs e)

@@ -39,6 +39,19 @@ namespace JarvisGoogleAPI.Domain.Repositories.EntityFramework
             return temp;
         }
 
+        public List<ProcName> GetProcNamesAsList()
+        {
+            List<ProcName> temp = new List<ProcName>();
+            IQueryable<ProcName> result = _context.ProcNames;
+
+            foreach (var item in result)
+            {
+                temp.Add(item);
+            }
+
+            return temp;
+        }
+
         public void SaveProcName(ProcName procName)
         {
             _context.Entry(procName).State = (procName.Id == default)

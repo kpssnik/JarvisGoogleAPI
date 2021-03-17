@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using JarvisGoogleAPI.Domain;
-
+using JarvisGoogleAPI.Tools;
 using JarvisGoogleAPI.View;
 
 namespace JarvisGoogleAPI
@@ -17,6 +17,8 @@ namespace JarvisGoogleAPI
         [STAThread]
         static void Main()
         {
+            FileManager.RecoverArchitecture();
+
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

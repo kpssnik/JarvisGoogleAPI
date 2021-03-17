@@ -67,7 +67,6 @@ E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\bin\Release\netcoreapp3.
 E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\bin\Release\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
-E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.1\JarvisGoogleAPI.View.ListeningForm.resources
 E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.1\JarvisGoogleAPI.View.WelcomeForm.resources
 E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.1\JarvisGoogleAPI.csproj.GenerateResource.cache
 E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.1\JarvisGoogleAPI.AssemblyInfoInputs.cache
@@ -78,3 +77,5 @@ E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.
 E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.1\JarvisGoogleAPI.pdb
 E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.1\JarvisGoogleAPI.genruntimeconfig.cache
 E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.1\JarvisGoogleAPI.csprojAssemblyReference.cache
+E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.1\JarvisGoogleAPI.View.ProgramsForm.resources
+E:\Programming\PROJECTS\JarvisGoogleAPI\JarvisGoogleAPI\obj\Release\netcoreapp3.1\JarvisGoogleAPI.View.ProgramEditForm.resources

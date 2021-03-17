@@ -17,19 +17,15 @@ namespace JarvisGoogleAPI.Controller
 {
     public class CommandController
     {
-        private readonly EfCommandsRepository commandsRepos;
-        private readonly EfProcNamesRepository procNamesRepos;
-        private readonly Dictionary<string, string> commandPairs;
-        private readonly Dictionary<string, string> procNamesPairs;
+        private EfCommandsRepository commandsRepos;
+        private EfProcNamesRepository procNamesRepos;
+        private Dictionary<string, string> commandPairs;
+        private Dictionary<string, string> procNamesPairs;
 
         public CommandController()
         {
-            commandsRepos = new EfCommandsRepository(new AppDbContext());
-            procNamesRepos = new EfProcNamesRepository(new AppDbContext());
 
-            commandPairs = commandsRepos.GetCommandsAsDictionary();
-            procNamesPairs = procNamesRepos.GetProcNamesAsDictionary();
-
+            UpdateDictionaries();
             //ProcName pn = procNamesRepos.GetProcNames().Where(x => x.SystemName == "aga").FirstOrDefault();
 
             //pn.SystemName = "newAga";
@@ -79,6 +75,15 @@ namespace JarvisGoogleAPI.Controller
             }
         }
 
+        public void UpdateDictionaries()
+        {
+            commandsRepos = new EfCommandsRepository(new AppDbContext());
+            procNamesRepos = new EfProcNamesRepository(new AppDbContext());
+
+            commandPairs = commandsRepos.GetCommandsAsDictionary();
+            procNamesPairs = procNamesRepos.GetProcNamesAsDictionary();
+        }
+
         private void ProcessStart(string userProcessName)
         {
             Process.Start(new ProcessStartInfo("cmd", $"/c start {procNamesPairs[userProcessName]}") { CreateNoWindow = true });
@@ -121,7 +126,7 @@ namespace JarvisGoogleAPI.Controller
                 {
                     query += splitted[i] + "+";
                 }
-                Process.Start(new ProcessStartInfo("cmd", ($"/c start https://google.com/search?q="+query.Trim('+') + "\"&\"tbm=isch")) { CreateNoWindow = true });
+                Process.Start(new ProcessStartInfo("cmd", ($"/c start https://google.com/search?q=" + query.Trim('+') + "\"&\"tbm=isch")) { CreateNoWindow = true });
             }
 
 
