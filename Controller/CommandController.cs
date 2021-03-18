@@ -86,26 +86,47 @@ namespace JarvisGoogleAPI.Controller
 
         private void ProcessStart(string userProcessName)
         {
-            Process.Start(new ProcessStartInfo("cmd", $"/c start {procNamesPairs[userProcessName]}") { CreateNoWindow = true });
-        }
-
-        private void ProcessKill(string userProcessName)
-        {
             try
             {
-                foreach (var process in Process.GetProcesses())
-                {
-                    if (process.ProcessName.ToLower().Contains(procNamesPairs[userProcessName]))
-                    {
-                        process.Kill();
-                    }
-                }
+                Process.Start(new ProcessStartInfo("cmd", $"/c start \"\" \"{procNamesPairs[userProcessName]}\"") { CreateNoWindow = true });
+
             }
             catch (KeyNotFoundException)
             {
                 Console.Beep(300, 100);
                 Console.Beep(250, 100);
             }
+        }
+
+        private void ProcessKill(string userProcessName)
+        {
+            try
+            {
+                string systemProc = procNamesPairs[userProcessName];
+                foreach (var process in Process.GetProcesses().Where(x => x.ProcessName.ToLower().Contains(systemProc)))
+                {
+                    process.Kill();
+                }
+                if (systemProc.Contains('\\'))
+                {
+                    foreach (var process in Process.GetProcesses().Where(x => x.ProcessName.ToLower().Contains(systemProc.Split('\\').LastOrDefault())))
+                    {
+                        process.Kill();
+                    }
+                }
+                string proc = procNamesPairs[userProcessName];
+                if (proc.Contains('\\')) proc = proc.Split('\\').LastOrDefault();
+
+                Process.Start(new ProcessStartInfo("cmd", $"/c taskkill /IM {proc}") { CreateNoWindow = true });
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.Beep(300, 100);
+                Console.Beep(250, 100);
+            }
+
+
+
         }
 
         private void GoogleSearch(string[] splitted)

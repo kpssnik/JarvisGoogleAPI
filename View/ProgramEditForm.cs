@@ -14,5 +14,16 @@ namespace JarvisGoogleAPI.View
         {
             InitializeComponent();
         }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            usernameTextBox.Text = usernameTextBox.Text.ToLower().Trim();
+            systemnameTextBox.Text = systemnameTextBox.Text.Trim();
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
