@@ -47,6 +47,7 @@ namespace JarvisGoogleAPI.View
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid.Size = new System.Drawing.Size(399, 322);
             this.grid.TabIndex = 0;
+        
             // 
             // addButton
             // 
@@ -90,6 +91,7 @@ namespace JarvisGoogleAPI.View
             this.Name = "ProgramsForm";
             this.Resizable = false;
             this.Text = "Список программ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProgramsForm_FormClosing);
             this.Load += new System.EventHandler(this.ProgramsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.ResumeLayout(false);

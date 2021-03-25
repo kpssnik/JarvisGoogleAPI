@@ -24,7 +24,7 @@ namespace JarvisGoogleAPI.View
     public partial class WelcomeForm : MetroForm
     {
         private ConvertController convertController;
-        private CommandController commandController;
+        public CommandController commandController;
 
         private EfCommandsRepository commandsRepos;
 
@@ -123,7 +123,7 @@ namespace JarvisGoogleAPI.View
 
         private void changeProgrammsButton_Click(object sender, EventArgs e)
         {
-            var programsForm = new ProgramsForm();
+            var programsForm = new ProgramsForm(this);
             programsForm.ShowDialog();
         }
 

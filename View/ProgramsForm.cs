@@ -16,10 +16,19 @@ namespace JarvisGoogleAPI.View
     {
 
         private EfProcNamesRepository repos = new EfProcNamesRepository(new Domain.AppDbContext());
+        private WelcomeForm parent;
 
         public ProgramsForm()
         {
             InitializeComponent();
+        }
+        public ProgramsForm(WelcomeForm parent)
+        {
+            InitializeComponent();
+
+            this.parent = parent;
+            this.parent.commandController.UpdateDictionaries();
+
         }
 
         private void ProgramsForm_Load(object sender, EventArgs e)
@@ -42,10 +51,9 @@ namespace JarvisGoogleAPI.View
 
                 repos.SaveProcName(pn);
 
-                grid.Refresh();
-                grid.Update();
             }
 
+            GridRefresh();
 
         }
 
@@ -76,8 +84,7 @@ namespace JarvisGoogleAPI.View
 
                     repos.SaveProcName(pn);
 
-                    grid.Refresh();
-                    grid.Update();
+                    GridRefresh();
                 }
 
             }
@@ -97,9 +104,27 @@ namespace JarvisGoogleAPI.View
 
                 repos.DeleteProcName(pn);
 
-                grid.Refresh();
-                grid.Update();            
             }
+
+            GridRefresh();
+
+
+        }
+
+        private void ProgramsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.parent.commandController.UpdateDictionaries();
+        }
+
+       
+
+        private void GridRefresh()
+        {
+            parent.commandController.UpdateDictionaries();
+            repos = new EfProcNamesRepository(new Domain.AppDbContext());
+            grid.DataSource = repos.GetProcNamesAsList();
+            grid.Update();
+            grid.Refresh();
         }
     }
 }

@@ -71,6 +71,7 @@ namespace JarvisGoogleAPI.Controller
             // Error sound
             else
             {
+                MessageBox.Show("Unknown command at switch\n" + $"{cmd}\n" + $"{firstArgument}");
                 Console.Beep(300, 300);
             }
         }
@@ -93,6 +94,7 @@ namespace JarvisGoogleAPI.Controller
             }
             catch (KeyNotFoundException)
             {
+                MessageBox.Show("Process start KeyNotFound exception\n" +  userProcessName);
                 Console.Beep(300, 100);
                 Console.Beep(250, 100);
             }
@@ -100,6 +102,7 @@ namespace JarvisGoogleAPI.Controller
 
         private void ProcessKill(string userProcessName)
         {
+            string proc = string.Empty;
             try
             {
                 string systemProc = procNamesPairs[userProcessName];
@@ -114,13 +117,14 @@ namespace JarvisGoogleAPI.Controller
                         process.Kill();
                     }
                 }
-                string proc = procNamesPairs[userProcessName];
+                proc = procNamesPairs[userProcessName];
                 if (proc.Contains('\\')) proc = proc.Split('\\').LastOrDefault();
 
                 Process.Start(new ProcessStartInfo("cmd", $"/c taskkill /IM {proc}") { CreateNoWindow = true });
             }
             catch (KeyNotFoundException)
             {
+                MessageBox.Show("Process kill key not found exception\n" + $"/c taskkill /IM {proc}");
                 Console.Beep(300, 100);
                 Console.Beep(250, 100);
             }
