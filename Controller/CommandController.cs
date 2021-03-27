@@ -71,7 +71,7 @@ namespace JarvisGoogleAPI.Controller
             // Error sound
             else
             {
-                MessageBox.Show("Unknown command at switch\n" + $"{cmd}\n" + $"{firstArgument}");
+                MessageBox.Show("Unknown command at switch\n" + $"{cmd}\n" + firstArgument);
                 Console.Beep(300, 300);
             }
         }
@@ -94,7 +94,7 @@ namespace JarvisGoogleAPI.Controller
             }
             catch (KeyNotFoundException)
             {
-                MessageBox.Show("Process start KeyNotFound exception\n" +  userProcessName);
+                MessageBox.Show("Process start KeyNotFound\n" +  userProcessName);
                 Console.Beep(300, 100);
                 Console.Beep(250, 100);
             }
@@ -124,7 +124,7 @@ namespace JarvisGoogleAPI.Controller
             }
             catch (KeyNotFoundException)
             {
-                MessageBox.Show("Process kill key not found exception\n" + $"/c taskkill /IM {proc}");
+                MessageBox.Show("Process kill key not found\n" + $"/c taskkill /IM {proc}");
                 Console.Beep(300, 100);
                 Console.Beep(250, 100);
             }
